@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<hr>
+<h1>게시글 상세보기</h1>
+<table class="table">
+
+<tr>
+    <th>제목</th>
+    <td th:text="${book?.title}"></td>
+</tr>
+<tr>
+    <th>저자</th>
+    <td th:text="${book?.author}"></td>
+</tr>
+<tr>
+    <th>가격</th>
+    <td th:text="${book?.price}"></td>
+</tr>
+<tr>
+    <th>세부사항</th>
+    <td th:text="${book?.content}"></td>
+</tr>
+</table>
+</hr>
+<div class="pull-right">
+    <a class="btn btn-default pull-right" th:href="'/board/modify?bid='+${book.bid}">수정</a>
+    <a class="btn btn-default pull-right" th:href="'/board/list'">목록으로</a>
+ </div>
+<form action="/board/delete" th:method="delete">
+    <input type="hidden" name="bid" th:value="${book?.bid}"/>
+    <input type="submit" value="삭제"/>
+</form>
+
+</body>
+</html>
