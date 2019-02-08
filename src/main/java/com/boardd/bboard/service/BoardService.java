@@ -3,6 +3,9 @@ package com.boardd.bboard.service;
 import com.boardd.bboard.domain.Book;
 import com.boardd.bboard.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +36,24 @@ public class BoardService{
         boardRepository.deleteById(idx);
     }
 
+    public long paging(){
+        int pageSize = 5;
+        long pageCount = boardRepository.count();
+        long totalPageNo ;
+
+        totalPageNo = pageCount/pageSize;
+        if(pageCount % pageSize > 0){
+            totalPageNo++;
+        }
+
+       return totalPageNo;
+    }
+
+    public Page<Book> findBoardList(int pageNo){
+        Pageable pageable;
+        pageable = PageRequest.of(pageNo,5);
+        return boardRepository.findAll(pageable);
+    }
 
 
 }

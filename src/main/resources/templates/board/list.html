@@ -34,8 +34,15 @@
 </table>
 <hr/>
 <div>
+    <th:block th:each="num: ${#numbers.sequence(1,boardPage_list)}">
+        <a th:text="${num}" th:href="'/board/list?pageNo='+${num}"/>
+    </th:block>
+</div>
+<hr/>
+<div>
     <a class="btn btn-default pull-right" href="/board/write">글쓰기</a>
 </div>
+
 
 </body>
 </html>

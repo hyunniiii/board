@@ -15,8 +15,10 @@ public class HomeController{
     private BoardService boardService;
 
     @GetMapping("/list")
-    public String list(Model model){
-        model.addAttribute("board_list",boardService.boardListFindAll());
+    public String list(Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo){
+        model.addAttribute("board_list",boardService.findBoardList(pageNo-1));
+        model.addAttribute("boardPage_list",boardService.paging());
+
         return "/board/list";
     }
 
