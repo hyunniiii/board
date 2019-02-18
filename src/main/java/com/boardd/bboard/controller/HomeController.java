@@ -23,10 +23,11 @@ public class HomeController{
     }
 
     @PostMapping("/create")
-    public String create(Book book){
+    @ResponseBody
+    public boolean create(@RequestBody Book book){
 
         boardService.boardCreate(book);
-        return "redirect:/board/list";
+        return true;
     }
 
     @GetMapping("/write")

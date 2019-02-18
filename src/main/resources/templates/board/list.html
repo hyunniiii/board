@@ -8,7 +8,7 @@
 
     <!-- 부가적인 테마 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
+    <script src="/static/js/jquery.min.js"/>
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
@@ -25,10 +25,10 @@
     </thead>
     <tbody>
     <tr th:each="book:${board_list}">
-        <td th:text="${book.bid}"></td>
-        <td><a th:href="'/board/detail?bid='+${book.bid}" th:text="${book.title}"></a></td>
-        <td th:text="${book.author}"></td>
-        <td th:text="${book.price}"></td>
+        <td th:text="${book.bid}" id="bid"></td>
+        <td><a th:href="'/board/detail?bid='+${book.bid}" th:text="${book.title}" id="title"></a></td>
+        <td th:text="${book.author}" id="author"></td>
+        <td th:text="${book.price}" id="price"></td>
     </tr>
     </tbody>
 </table>
@@ -39,10 +39,8 @@
     </th:block>
 </div>
 <hr/>
-<div>
-    <a class="btn btn-default pull-right" href="/board/write">글쓰기</a>
+<div class="pull-right">
+    <a href="/board/write" class="btn btn-primary">글쓰기</a>
 </div>
-
-
 </body>
 </html>

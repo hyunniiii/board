@@ -6,6 +6,7 @@
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
+    <script src="/static/js/jquery.min.js"/>
     <!-- 부가적인 테마 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
@@ -14,27 +15,56 @@
 </head>
 <body>
 <h2>책 정보 입력</h2>
-<form action="/board/create" method="post" >
+<form id="insrtForm" >
+
     <p>
         <strong>책 제목</strong>
-        <input type="text" name="title" >
+        <input type="text" name="title" id="title">
     </p>
     <p>
         <strong>책 저자</strong>
-        <input type="text" name="author">
+        <input type="text" name="author" id="author">
     </p>
     <p>
         <strong>가격</strong>
-        <input type="text" name="price">
+        <input type="text" name="price" id="price">
     </p>
     <p>
         <strong>세부사항</strong>
-        <textarea name="content"></textarea>
+        <textarea name="content" id="content"></textarea>
     </p>
     <p>
-        <input type="submit" value="제출하기">
+        <button type="button" class="btn btn-primary" id="insert">글쓰기</button>
     </p>
 </form>
+
+
+<script th:if="!${book?.idx}">
+    $('#insert').click(function () {
+
+        var jsonData = JSON.stringify({
+            bid: $('#bid').val(),
+            title: $('#title').val(),
+            author: $('#author').val(),
+            price: $('#price').val(),
+            content: $('#content').val()
+        });
+        $.ajax({
+            url: "http://localhost:8080/board/create",
+            type: "POST",
+            data: jsonData,
+            contentType: "application/json",
+            dataType: "json",
+            success: function () {
+                alert("저장 성공!");
+                location.href = '/board/list';
+            },
+            error: function () {
+                alert("저장 실패!");
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
