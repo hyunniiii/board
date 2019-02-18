@@ -56,9 +56,10 @@ public class HomeController{
     }
 
     @DeleteMapping("/delete")
-    public String delete(@RequestParam(value = "bid" , defaultValue="0") Long idx){
+    @ResponseBody
+    public boolean delete(@RequestBody @RequestParam(value = "bid" , defaultValue="0") Long idx){
         boardService.boardDelete(idx);
-        return "redirect:/board/list";
+        return true;
     }
 
 

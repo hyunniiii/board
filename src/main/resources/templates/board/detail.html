@@ -39,8 +39,30 @@
     <a class="btn btn-default pull-right" th:href="'/board/list'">목록으로</a>
  </div>
 <form action="/board/delete" th:method="delete">
-    <input type="hidden" name="bid" th:value="${book?.bid}"/>
-    <input type="submit" value="삭제"/>
+    <input type="hidden" name="bid" th:value="${book?.bid}" id="bid"/>
 </form>
+<div>
+    <button type="button" class="btn btn-primary" id="delete">삭제</button>
+</div>
+
+<script>
+    $('#delete').click(function () {
+        var bid = $('#bid').val();
+        console.log(bid);
+        $.ajax({
+            url: 'http://localhost:8080/board/delete?bid='+bid,
+            type: "DELETE",
+            contentType: "application/json",
+            dataType: "json",
+            success: function () {
+                alert("success!");
+                location.href='/board/list';
+            },
+            error: function () {
+                alert("실패!");
+            }
+        });
+    });
+</script>
 </body>
 </html>
