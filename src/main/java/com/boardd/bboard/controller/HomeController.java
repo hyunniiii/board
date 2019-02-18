@@ -2,6 +2,7 @@ package com.boardd.bboard.controller;
 
 import com.boardd.bboard.domain.Book;
 import com.boardd.bboard.service.BoardService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,9 +49,10 @@ public class HomeController{
     }
 
     @PutMapping("/update")
-    public String update(Book book){
+    @ResponseBody
+    public boolean update(@RequestBody Book book){
         boardService.boardUpdate(book);
-        return "redirect:/board/detail?bid="+book.getBid();
+        return true;
     }
 
     @DeleteMapping("/delete")

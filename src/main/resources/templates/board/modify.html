@@ -9,32 +9,60 @@
     <!-- 부가적인 테마 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
+    <script src="/static/js/jquery.min.js"/>
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <h2>책 정보 입력</h2>
 <form action="/board/update" th:method="put">
-    <input type="hidden" name="bid" th:value="${book?.bid}"/>
+    <input type="hidden" name="bid" th:value="${book?.bid}" id="bid"/>
     <p>
         <strong>책 제목</strong>
-        <input type="text" name="title" th:value="${book?.title}" >
+        <input type="text" name="title" th:value="${book?.title}" id="title" >
     </p>
     <p>
         <strong>책 저자</strong>
-        <input type="text" name="author" th:value="${book?.author}">
+        <input type="text" name="author" th:value="${book?.author}" id="author">
     </p>
     <p>
         <strong>가격</strong>
-        <input type="text" name="price" th:value="${book?.price}">
+        <input type="text" name="price" th:value="${book?.price}" id="price">
     </p>
     <p>
         <strong>세부사항</strong>
-        <textarea name="content" th:text="${book?.content}"></textarea>
+        <textarea name="content" th:text="${book?.content}" id="content"></textarea>
     </p>
     <p>
-        <input type="submit" value="제출하기">
+        <button type="button" class="btn btn-primary" id="update">수정하기</button>
     </p>
 </form>
+
+<script th:if="${book?.bid}">
+    $('#update').click(function () {
+        var jsonData = JSON.stringify({
+            bid: $('#bid').val(),
+            title: $('#title').val(),
+            author: $('#author').val(),
+            price: $('#price').val(),
+            content: $('#content').val()
+        });
+        $.ajax({
+            url: "http://localhost:8080/board/update",
+            type: "PUT",
+            data: jsonData,
+            contentType: "application/json",
+            dataType: "json",
+            success: function () {
+                alert("저장성공!");
+                location.href= '/board/detail?bid='+$('#bid').val();
+            },
+            error: function () {
+                alert("저장실패!");
+            }
+        });
+    });
+
+</script>
 </body>
 </html>

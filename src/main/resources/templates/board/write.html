@@ -39,7 +39,7 @@
 </form>
 
 
-<script th:if="!${book?.idx}">
+<script th:if="!${book?.bid}">
     $('#insert').click(function () {
 
         var jsonData = JSON.stringify({
